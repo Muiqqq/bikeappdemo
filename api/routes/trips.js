@@ -1,9 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const db = require('../database');
 
 const get = async (req, res, next) => {
   try {
-    res.status(200).send('This is a dummy GET to TRIPS resource');
+    db.all('SELECT * FROM trips LIMIT 10', (err, rows) => {
+      res.status(200).send(rows);
+    });
   } catch (e) {
     next(e);
   }
