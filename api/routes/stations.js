@@ -24,7 +24,6 @@ const get = async (req, res, next) => {
       .order(VALID_ORDERINGS)
       .paginate()
       .find();
-    console.log(result);
     res.status(200).send(result);
   } catch (e) {
     next(e);

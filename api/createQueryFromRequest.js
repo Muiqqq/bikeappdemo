@@ -31,7 +31,6 @@ const createQueryFromRequest = (tableName, req) => {
     query: `SELECT * FROM ${tableName} WHERE 1 = 1`,
     placeholders: [],
     filter: () => {
-      console.log('filterable()');
       const temp = queryCreator;
 
       const field = req.query.field;
@@ -45,7 +44,6 @@ const createQueryFromRequest = (tableName, req) => {
       return temp;
     },
     order: (validOrderableColumns) => {
-      console.log('orderable()');
       const temp = queryCreator;
       const sortBy = req.query.sort_by || 'Departure:Asc';
       let [ordering, direction] = validateSortBy(sortBy, validOrderableColumns);
@@ -53,7 +51,6 @@ const createQueryFromRequest = (tableName, req) => {
       return temp;
     },
     paginate: () => {
-      console.log('paginatable()');
       const temp = queryCreator;
       const page = req.query.page || 1;
       const perPage = req.query.per_page || 10;
