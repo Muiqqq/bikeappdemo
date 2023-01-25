@@ -2,6 +2,9 @@ import time
 import pandas as pd
 import sqlalchemy as sa
 
+# I noticed there are some duplicate rows in the CSV files, I wonder
+# if I should get rid of those
+
 def main():
     print("Attempting to create bikingdata.db and import csv files.")
     # File locations of the City bike journey data csv files
