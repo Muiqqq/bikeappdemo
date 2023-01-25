@@ -5,10 +5,23 @@ const createQueryFromRequest = require('../createQueryFromRequest');
 
 const table_name = 'stations';
 
+const VALID_ORDERINGS = [
+  'nimi',
+  'namn',
+  'name',
+  'osoite',
+  'adress',
+  'kaupunki',
+  'stad',
+  'operaattor',
+  'kapasiteet',
+];
+
 const get = async (req, res, next) => {
   try {
     const result = await createQueryFromRequest(table_name, req)
       .filter()
+      .order(VALID_ORDERINGS)
       .paginate()
       .find();
     console.log(result);
