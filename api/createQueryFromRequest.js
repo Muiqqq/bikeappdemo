@@ -51,20 +51,7 @@ const createQueryFromRequest = (tableName, req) => {
     db: db,
     query: `SELECT * FROM ${tableName} WHERE 1 = 1`,
     placeholders: [],
-    filter: () => {
-      const temp = queryCreator;
-
-      const field = req.query.field;
-      const value = req.query.value;
-
-      if (field && value) {
-        temp.query += ` AND ${field} = ?`;
-        temp.placeholders.push(value);
-      }
-
-      return temp;
-    },
-    multiFilter: (validFilterableColumns) => {
+    filter: (validFilterableColumns) => {
       const temp = queryCreator;
       const filterBy = {};
       for (const element of validFilterableColumns) {

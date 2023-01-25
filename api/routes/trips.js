@@ -20,8 +20,7 @@ const VALID_FILTERABLES = VALID_ORDERINGS;
 const get = async (req, res, next) => {
   try {
     const result = await createQueryFromRequest(table_name, req)
-      .filter()
-      .multiFilter(VALID_FILTERABLES)
+      .filter(VALID_FILTERABLES)
       .order(VALID_ORDERINGS)
       .paginate()
       .find();

@@ -17,10 +17,12 @@ const VALID_ORDERINGS = [
   'kapasiteet',
 ];
 
+const VALID_FILTERABLES = VALID_ORDERINGS;
+
 const get = async (req, res, next) => {
   try {
     const result = await createQueryFromRequest(table_name, req)
-      .filter()
+      .filter(VALID_FILTERABLES)
       .order(VALID_ORDERINGS)
       .paginate()
       .find();
