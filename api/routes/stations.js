@@ -1,7 +1,7 @@
 const express = require('express');
 const res = require('express/lib/response');
 const router = express.Router();
-const createQueryFromRequest = require('../database');
+const createQueryFromRequest = require('../createQueryFromRequest');
 
 const table_name = 'stations';
 

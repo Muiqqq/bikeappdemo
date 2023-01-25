@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const createQueryFromRequest = require('../database');
+const createQueryFromRequest = require('../createQueryFromRequest');
 
 const table_name = 'trips';
 
