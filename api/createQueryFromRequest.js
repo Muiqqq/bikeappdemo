@@ -25,6 +25,27 @@ const validateSortBy = (oSortBy, VALID_ORDERINGS) => {
   }
 };
 
+const getOperatorFromValue = (value) => {
+  // Assuming value is one of: ['value;lte', 'value;lt', 'value;gt', 'value;gte', 'value']
+  if (value.includes(';')) {
+    const [val, op] = value.split(';');
+    switch (op) {
+      case 'lt':
+        return [val, '<'];
+      case 'lte':
+        return [val, '<='];
+      case 'gt':
+        return [val, '>'];
+      case 'gte':
+        return [val, '>='];
+      default:
+        throw new Error('ERROR: Bad parameter');
+    }
+  } else {
+    return [value, '='];
+  }
+};
+
 const createQueryFromRequest = (tableName, req) => {
   const queryCreator = {
     db: db,
@@ -41,6 +62,22 @@ const createQueryFromRequest = (tableName, req) => {
         temp.placeholders.push(value);
       }
 
+      return temp;
+    },
+    multiFilter: (validFilterableColumns) => {
+      const temp = queryCreator;
+      const filterBy = {};
+      for (const element of validFilterableColumns) {
+        if (element in req.query) {
+          filterBy[element] = req.query[element];
+        }
+      }
+      for (const property in filterBy) {
+        const [value, operator] = getOperatorFromValue(filterBy[property]);
+        const fieldName = property;
+        temp.query += ` AND "${fieldName}" ${operator} ?`;
+        temp.placeholders.push(value);
+      }
       return temp;
     },
     order: (validOrderableColumns) => {
