@@ -54,6 +54,7 @@ def importCsv(engine, tableName, uri, validationFunction):
                     valid_rows.append(row.to_dict())
 
         valid_df = pd.DataFrame(valid_rows)
+        valid_df.columns = [col.replace(' ', '_') for col in valid_df.columns]
         valid_df.to_sql(tableName, engine, if_exists='append')
 
 if __name__ == "__main__":
