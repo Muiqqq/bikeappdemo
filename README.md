@@ -1,2 +1,2 @@
 # bikeappdemo
-A proof of programming competency.
+work in progress
